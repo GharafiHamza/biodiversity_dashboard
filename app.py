@@ -131,7 +131,7 @@ while True:
     fig_donut = go.Figure(data=[go.Pie(
         labels=species_names,
         values=species_counts,
-        hole=.4,
+        hole=.6,
         marker=dict(colors=species_colors)
     )])
     fig_donut.update_layout(title_text="Species Counts Donut Chart")
