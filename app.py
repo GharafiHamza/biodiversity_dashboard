@@ -142,7 +142,6 @@ while True:
         labels=species_names,
         values=species_counts,
         hole=.6,
-        sort=False,
         marker=dict(colors=species_colors)
     )])
     fig_donut.update_layout(title_text="Species Counts Donut Chart")
