@@ -95,13 +95,23 @@ st.title("Dynamic Biodiversity and Environmental Data Visualization")
 
 selected_zone = st.selectbox("Select Zone", zones)
 
+
+mu = 0
+sigma = 0.05
+
+def get_latest_species_count(zone):
+    for entry in reversed(recent_data):
+        if entry["Zone"] == zone:
+            return entry["SpeciesCounts"]
+    return None 
+
 # Function to update data
 def update_data():
     global recent_data
     new_date = datetime.now()
     new_data = []
     for zone in zones:
-        species_counts = [random.randint(0, 100) for _ in species_names]
+        species_counts = [c +  math.floor(np.random.normal(mu, sigma)) for c in get_latest_species_count(zone)] 
         env_data = generate_environmental_data()
         row = {
             "Date": new_date,
@@ -132,6 +142,7 @@ while True:
         labels=species_names,
         values=species_counts,
         hole=.6,
+        sort=False,
         marker=dict(colors=species_colors)
     )])
     fig_donut.update_layout(title_text="Species Counts Donut Chart")
