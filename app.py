@@ -111,7 +111,7 @@ def update_data():
     new_date = datetime.now()
     new_data = []
     for zone in zones:
-        species_counts = [c +  math.floor(np.random.normal(mu, sigma)*c) for c in get_latest_species_count(zone)] 
+        species_counts = [int(c +  round(np.random.normal(mu, sigma)*c, 0)) for c in get_latest_species_count(zone)] 
         env_data = generate_environmental_data()
         row = {
             "Date": new_date,
@@ -139,7 +139,7 @@ while True:
     latest_data = zone_df.iloc[-1]
     species_counts = latest_data['SpeciesCounts']
     fig_donut = go.Figure(data=[go.Pie(
-        labels=species_names,
+        labels=[f'{n} ({c})' for n,c in zip(species_names, species_counts)],
         values=species_counts,
         hole=.6,
         marker=dict(colors=species_colors)
