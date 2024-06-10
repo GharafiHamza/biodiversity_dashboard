@@ -97,7 +97,7 @@ selected_zone = st.selectbox("Select Zone", zones)
 
 
 mu = 0
-sigma = 0.05
+sigma = 0.02
 
 def get_latest_species_count(zone):
     for entry in reversed(recent_data):
@@ -111,7 +111,7 @@ def update_data():
     new_date = datetime.now()
     new_data = []
     for zone in zones:
-        species_counts = [c +  math.floor(np.random.normal(mu, sigma)) for c in get_latest_species_count(zone)] 
+        species_counts = [c +  math.floor(np.random.normal(mu, sigma)*c) for c in get_latest_species_count(zone)] 
         env_data = generate_environmental_data()
         row = {
             "Date": new_date,
